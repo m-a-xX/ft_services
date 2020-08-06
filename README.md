@@ -1,0 +1,3 @@
+# ft_services
+
+This project consists in creating a Kubernetes cluster containing different services such as an Nginx server, an SFTP server, a Wordpress server, a database ...
