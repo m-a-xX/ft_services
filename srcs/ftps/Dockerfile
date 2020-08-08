@@ -1,21 +1,25 @@
-FROM alpine
+FROM alpine:latest
 
-RUN apk update
-RUN apk add vsftpd
-RUN apk add openssl
-RUN rm  -rf /tmp/* /var/cache/apk/*
+RUN apk upgrade && \
+    printf '%s\n' \
+      '@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing' \
+      >> /etc/apk/repositories && \
+    apk update && \
+	apk add openssl && \
+    apk add pure-ftpd@testing="1.0.49-r1" && \
+    rm -rf /var/cache/apk/*
 
-RUN adduser -D ftp-user
-RUN echo 'ftp-user:ftp-pwd' | chpasswd
-RUN mkdir /home/ftp-user/ftp
-RUN chown nobody:nogroup /home/ftp-user/ftp
-RUN chmod a-w /home/ftp-user/ftp
-RUN openssl req -x509 -nodes -days 365 -subj "/C=CA/ST=QC/O=Company, Inc./CN=mydomain.com" -addext "subjectAltName=DNS:mydomain.com" -newkey rsa:2048 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem
+RUN openssl req -x509 -nodes -days 7300 -newkey rsa:2048 -subj "/C=FR/ST=fr/L=Paris/O=Com 42/CN=maxxx" -keyout /etc/ssl/private/pure-ftpd.pem -out /etc/ssl/private/pure-ftpd.pem && \
+	chmod 600 /etc/ssl/private/pure-ftpd.pem
 
-EXPOSE 21
+RUN	mkdir -p /ftps/ftp-user && \
+	adduser -h /ftps/ftp-user -D ftp-user && \
+	echo "ftp-user:ftp-pwd" | chpasswd
 
-COPY files/vsftpd.conf /etc/vsftpd/vsftpd.conf
 COPY files/start.sh /start.sh
+
 RUN chmod +x /start.sh
+
+EXPOSE 21 21000
 
 ENTRYPOINT sh /start.sh

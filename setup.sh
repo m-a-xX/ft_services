@@ -11,4 +11,6 @@ kubectl create -f srcs/metallb/metallb.yaml
 docker build -t nginx srcs/nginx
 kubectl apply -f srcs/nginx/nginx.yaml
 
-
+# deploy ftps
+docker build -t ftps srcs/ftps
+kubectl apply -f srcs/ftps/ftps.yaml

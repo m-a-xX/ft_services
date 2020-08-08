@@ -1,1 +1,1 @@
-/usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf
+/usr/sbin/pure-ftpd -j -Y 2 -p 21000:21000 -P "172.17.0.11"
