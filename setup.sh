@@ -3,6 +3,9 @@ minikube delete
 minikube start
 eval $(minikube docker-env)
 
+# enable kubernetes dashboard
+minikube addons enable dashboard
+
 # install metallb and creaate deployment and speaker deamon
 sh srcs/metallb/install.sh
 kubectl create -f srcs/metallb/metallb.yaml
