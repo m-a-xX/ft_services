@@ -1,0 +1,2 @@
+docker run --name mysql -it -p 3306:3306 --network="bridge" -e WP_USER_PASS="wp_pass" -e ADMIN_PASS="password" -v /sys/fs/cgroup -d mysql
+docker run --name phpmyadmin -d --link mysql:db -p 5000:80 phpmyadmin

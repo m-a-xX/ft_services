@@ -29,7 +29,7 @@ RUN curl https://files.phpmyadmin.net/phpMyAdmin/5.0.4/phpMyAdmin-5.0.4-all-lang
 		chown -R nobody:nginx /var/www/html /sessions && \
     cp /config/nginx_site.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 80
+EXPOSE 5000
 
 COPY files/start.sh /start.sh
 
