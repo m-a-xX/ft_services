@@ -18,5 +18,10 @@ kubectl apply -f srcs/nginx/nginx.yaml
 docker build -t ftps srcs/ftps
 kubectl apply -f srcs/ftps/ftps.yaml
 
+# deploy mysql
 docker build -t mysql srcs/mysql
 kubectl apply -f srcs/mysql/mysql.yaml
+
+# deploy phpmyadmin
+docker build -t phpmyadmin srcs/phpmyadmin
+kubectl apply -f srcs/phpmyadmin/phpmyadmin.yaml

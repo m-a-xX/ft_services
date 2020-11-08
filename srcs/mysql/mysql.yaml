@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: mysql-pv-volume
+  name: mysql-pv
   labels:
     type: local
 spec:
@@ -30,43 +30,37 @@ spec:
   metadata:
     name: mysql
   spec:
-    #type: clusterIP
+    type: ClusterIP
     ports:
     - port: 3306
+      targetPort: 3306
     selector:
       app: mysql
-    clusterIP: None
-  ---
-  apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
-  kind: Deployment
-  metadata:
-    name: mysql
-  spec:
-    selector:
-      matchLabels:
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  serviceName: mysql
+  template:
+    metadata:
+      labels:
         app: mysql
-    strategy:
-      type: Recreate
-    template:
-      metadata:
-        labels:
-          app: mysql
-      spec:
-        containers:
-        - image: mysql
-          name: mysql
-          imagePullPolicy: Never
-          env:
-            # Use secret in real usage
-          - name: MYSQL_ROOT_PASSWORD
-            value: password
-          ports:
-          - containerPort: 3306
-            name: mysql
-          volumeMounts:
-          - name: mysql-persistent-storage
+    spec:
+      containers:
+      - name: mysql
+        image: mysql
+        imagePullPolicy: Never
+        volumeMounts:
+          - name: mysql-pv
             mountPath: /var/lib/mysql
-        volumes:
-        - name: mysql-persistent-storage
+        ports:
+        - containerPort: 3306
+      volumes:
+        - name: mysql-pv
           persistentVolumeClaim:
             claimName: mysql-pv-claim

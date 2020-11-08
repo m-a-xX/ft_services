@@ -1,10 +1,8 @@
-#!/bin/sh
-
-openrc
+openrc &> /dev/null
 touch /run/openrc/softlevel
-/etc/init.d/mariadb setup
+/etc/init.d/mariadb setup &> /dev/null
 sed -i 's/skip-networking/# skip-networking/g' /etc/my.cnf.d/mariadb-server.cnf
-service mariadb restart
+service mariadb restart &> /dev/null
 
 mysql --user=root << EOF
   CREATE DATABASE wordpress;
@@ -15,6 +13,6 @@ mysql --user=root << EOF
   FLUSH PRIVILEGES;
 EOF
 
-mysql -u root wordpress < /wordpress.sql
+mysql --user=root wordpress < /wordpress.sql
 
-mysql
+tail -F /dev/null
