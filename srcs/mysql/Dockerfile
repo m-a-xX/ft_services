@@ -7,4 +7,4 @@ COPY files/start.sh /start.sh
 
 EXPOSE 3306
 
-CMD [ "/bin/sh", "/start.sh" ]
+ENTRYPOINT sh /start.sh
