@@ -17,8 +17,8 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: ftps-pv-claim
-  labels:
-    app: ftps
+  #labels:
+  #  app: ftps
 spec:
   accessModes:
     - ReadWriteOnce

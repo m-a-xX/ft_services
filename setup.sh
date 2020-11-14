@@ -25,3 +25,7 @@ kubectl apply -f srcs/mysql/mysql.yaml
 # deploy phpmyadmin
 docker build -t phpmyadmin srcs/phpmyadmin
 kubectl apply -f srcs/phpmyadmin/phpmyadmin.yaml
+
+# deploy wordpress
+docker build -t wordpress srcs/wordpress
+kubectl apply -f srcs/wordpress/wordpress.yaml
