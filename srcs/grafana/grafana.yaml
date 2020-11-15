@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  labels:
+    app: grafana
+spec:
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - image: grafana
+        name: grafana
+        imagePullPolicy: Never
+        env:
+          - name: INFLUXDB_DB
+            value: monitoring
+          - name: INFLUXDB_ADMIN_USER
+            value: admin
+          - name: INFLUXDB_ADMIN_PASSWORD
+            value: password
+        ports:
+        - containerPort: 3000
+          name: grafana
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  labels:
+    app: grafana
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 3000
+  selector:
+    app: grafana

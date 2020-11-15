@@ -1,0 +1,1 @@
+{"id":2,"orgId":1,"name":"InfluxDB-1","type":"influxdb","typeLogoUrl":"public/app/plugins/datasource/influxdb/img/influxdb_logo.svg","access":"proxy","url":"http://influxdb:8086","password":"","user":"telegraf_user","database":"telegraf","basicAuth":false,"isDefault":false,"jsonData":{},"readOnly":false}
