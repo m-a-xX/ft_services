@@ -33,4 +33,7 @@ EXPOSE 5000
 
 COPY files/start.sh /start.sh
 
+RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
+COPY files/telegraf.conf /etc/telegraf/telegraf.conf
+
 ENTRYPOINT sh /start.sh

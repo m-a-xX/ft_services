@@ -1,7 +1,7 @@
 # install a new minikube
 minikube delete
 minikube start
-eval $(minikube docker-env)
+eval $(minikube -p minikube docker-env)
 
 # enable kubernetes dashboard
 minikube addons enable dashboard
@@ -10,9 +10,9 @@ minikube addons enable dashboard
 sh srcs/metallb/install.sh
 kubectl create -f srcs/metallb/metallb.yaml
 
-# deploy nginx cluster
-docker build -t nginx srcs/nginx
-kubectl apply -f srcs/nginx/nginx.yaml
+# deploy influxdb
+docker build -t influxdb srcs/influxdb
+kubectl apply -f srcs/influxdb/influxdb.yaml
 
 # deploy ftps
 docker build -t ftps srcs/ftps
@@ -29,3 +29,11 @@ kubectl apply -f srcs/phpmyadmin/phpmyadmin.yaml
 # deploy wordpress
 docker build -t wordpress srcs/wordpress
 kubectl apply -f srcs/wordpress/wordpress.yaml
+
+# deploy nginx
+docker build -t nginx srcs/nginx
+kubectl apply -f srcs/nginx/nginx.yaml
+
+# deploy grafana
+docker build -t grafana srcs/grafana
+kubectl apply -f srcs/grafana/grafana.yaml

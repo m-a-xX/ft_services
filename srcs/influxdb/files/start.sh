@@ -1,1 +1,4 @@
-influxd
+#!/bin/sh
+
+influxd &
+telegraf
