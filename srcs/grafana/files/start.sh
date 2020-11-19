@@ -1,5 +1,5 @@
 #!/bin/sh
 
 telegraf &
-cd grafana/bin
+cd grafana-7.3.2/bin
 ./grafana-server
