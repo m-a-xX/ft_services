@@ -17,6 +17,12 @@ spec:
       - image: wordpress
         name: wordpress
         imagePullPolicy: Never
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5050
+          initialDelaySeconds: 3
+          periodSeconds: 3
         env:
         - name: WORDPRESS_DB_HOST
           value: mysql
