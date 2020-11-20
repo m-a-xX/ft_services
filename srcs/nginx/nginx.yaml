@@ -18,6 +18,13 @@ spec:
       - name: nginx
         image: nginx
         imagePullPolicy: Never
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - /liveness.sh
+          initialDelaySeconds: 15
+          periodSeconds: 5
         ports:
         - containerPort: 80
         - containerPort: 443
