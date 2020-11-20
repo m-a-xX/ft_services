@@ -1,6 +1,12 @@
 # install a new minikube
 minikube delete
 minikube start
+#kubectl delete pod --all 
+#kubectl delete pvc --all
+#kubectl delete pv --all
+#kubectl delete deployment --all
+#kubectl delete statefulset --all
+#kubectl delete service --all
 eval $(minikube -p minikube docker-env)
 
 # enable kubernetes dashboard
